@@ -1,0 +1,22 @@
+server:
+  port: 8080 # 启动端口
+  tomcat:
+    uri-encoding: utf-8
+  servlet:
+    encoding:
+      enabled: true
+      charset: utf-8
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    # web
+#    url: jdbc:oracle:thin:@//10.185.9.101:11521/wsdb
+#    username: DKY_JSJD
+#    password: Gari.2019
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+
+  # local
+    url: jdbc:oracle:thin:localhost:1521/orcl
+    username: DKY_JSJD
+    password: Gari.2019
+    driver-class-name: oracle.jdbc.OracleDriver
