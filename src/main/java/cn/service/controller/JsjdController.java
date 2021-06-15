@@ -22,8 +22,8 @@ public class JsjdController {
 
     @RequestMapping("getGcRws")
     @ResponseBody
-    public JSONObject getGcRws(String dydj, String name, int page, int rows) {
-        return queryService.getGcRws(dydj, name, page, rows);
+    public JSONObject getGcRws(String startTime,String endTime,String dydj, String name, int page, int rows) {
+        return queryService.getGcRws(startTime,endTime,dydj, name, page, rows);
     }
 
     @RequestMapping("getJdWts")
@@ -42,6 +42,12 @@ public class JsjdController {
     @ResponseBody
     public String addGcRw(@RequestBody JSONObject gcRw) {
         return queryService.addJdWt(gcRw);
+    }
+
+    @RequestMapping("addYjd")
+    @ResponseBody
+    public String addYjd(@RequestBody JSONObject yjd) {
+        return queryService.addYjd(yjd);
     }
 
     @RequestMapping("addJdWt")

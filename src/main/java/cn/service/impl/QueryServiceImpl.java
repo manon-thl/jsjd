@@ -19,7 +19,15 @@ public class QueryServiceImpl implements QueryService {
     private NamedParameterJdbcTemplate jdbcTemplate;
 
     @Override
-    public JSONObject getGcRws(String dydj, String name, int page, int rows) {
+    public JSONObject getGcRws(String startTime,String endTime,String dydj, String name, int page, int rows) {
+        String where_startTime = "";
+        if (startTime != null && !"".equals(startTime)) {
+            where_startTime = " and update_time<TO_DATE(:startTime,'yyyy-mm-dd HH24:mi:ss')";
+        }
+        String where_endTime = "";
+        if (endTime != null && !"".equals(endTime)) {
+            where_endTime = " and update_time<TO_DATE(:endTime,'yyyy-mm-dd HH24:mi:ss')";
+        }
         String where_dydj = "";
         if (dydj != null && !"".equals(dydj)) {
             where_dydj = " and gcmc like '%'||:dydj||'%'";
@@ -29,11 +37,13 @@ public class QueryServiceImpl implements QueryService {
             where_name = " and gcmc like '%'||:name||'%'";
         }
         Map<String, Object> params = new HashMap<>();
+        params.put("startTime", startTime);
+        params.put("endTime", endTime);
         params.put("dydj", dydj);
         params.put("name", name);
         params.put("page", page);
         params.put("rows", rows);
-        String sql = "select * from app_jsjd_xcjd_gclr where 1=1" + where_dydj + where_name;
+        String sql = "select * from app_jsjd_xcjd_gclr where 1=1" + where_dydj + where_name + where_startTime + where_endTime;
         String dataSql = "select * from (select rownum rn,a.* from (" + sql + ") a) where rn>(:page-1)*:rows and rn<=:page*:rows";
         String countSql = "select count(1) from (" + sql + ") ";
         List<Map<String, Object>> datas = jdbcTemplate.queryForList(dataSql, params);
@@ -112,6 +122,16 @@ public class QueryServiceImpl implements QueryService {
                 " values(:id,:gcmc,:updateTime,:userName,:userId,:yxdw,:jgdw,:sjdw,:sgdw,:gldw,:wzgydw,:status)";
         int update = jdbcTemplate.update(sql, params);
         return update == 1 ? "工程任务录入成功" : "工程任务录入失败";
+    }
+
+    /***
+     * 预警单录入
+     * @param yjd
+     * @return
+     */
+    @Override
+    public String addYjd(JSONObject yjd) {
+        return null;
     }
 
     /***
