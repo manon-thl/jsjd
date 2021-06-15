@@ -20,33 +20,39 @@ public class JsjdController {
     @Autowired
     private QueryService queryService;
 
-    @RequestMapping("getGcRw")
+    @RequestMapping("getGcRws")
     @ResponseBody
-    public JSONObject getGcRw(String dydj, String name, int page, int rows){
-        return queryService.getGcRw(dydj,name,page,rows);
+    public JSONObject getGcRws(String dydj, String name, int page, int rows) {
+        return queryService.getGcRws(dydj, name, page, rows);
     }
 
-    @RequestMapping("getJdWt")
+    @RequestMapping("getJdWts")
     @ResponseBody
-    public JSONObject getJdWt(int page, int rows){
-        return queryService.getJdWt(page,rows);
+    public JSONObject getJdWts(int page, int rows) {
+        return queryService.getJdWts(page, rows);
     }
 
     @RequestMapping("getAttrs")
     @ResponseBody
-    public JSONObject getAttrs(int page, int rows){
-        return null;
+    public JSONObject getAttrs(int page, int rows) {
+        return queryService.getAttrs(page, rows);
     }
 
     @RequestMapping("addGcRw")
     @ResponseBody
-    public String addGcRw(@RequestBody JSONObject gcRw){
+    public String addGcRw(@RequestBody JSONObject gcRw) {
         return queryService.addJdWt(gcRw);
     }
 
     @RequestMapping("addJdWt")
     @ResponseBody
-    public String addJdWt(@RequestBody JSONObject jdWt){
+    public String addJdWt(@RequestBody JSONObject jdWt) {
         return queryService.addJdWt(jdWt);
+    }
+
+    @RequestMapping("addAttr")
+    @ResponseBody
+    public String addAttr(@RequestBody JSONObject attr){
+        return queryService.addAttr(attr);
     }
 }

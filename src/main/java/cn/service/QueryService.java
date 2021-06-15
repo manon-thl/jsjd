@@ -7,9 +7,9 @@ import java.util.Map;
 
 public interface QueryService {
 
-    JSONObject getGcRw(String dydj,String name, int page, int rows);
+    JSONObject getGcRws(String dydj,String name, int page, int rows);
 
-    JSONObject getJdWt(int page, int rows);
+    JSONObject getJdWts(int page, int rows);
 
     JSONObject getAttrs(int page, int rows);
 
@@ -27,5 +27,10 @@ public interface QueryService {
      */
     String addJdWt(JSONObject jdWt);
 
-
+    /***
+     * 字段录入
+     * @param attr
+     * @return
+     */
+    String addAttr(JSONObject attr);
 }
